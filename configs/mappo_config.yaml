@@ -1,0 +1,26 @@
+# configs/mappo_config.yaml
+
+experiment:
+  name: "mappo_coevolution_review2"
+  seed: 42
+  num_episodes: 50
+  max_steps_per_episode: 4
+
+training:
+  gamma: 0.99
+  gae_lambda: 0.95
+  ppo_epochs: 4
+  clip_epsilon: 0.2
+  critic_lr: 0.00001
+  actor_lr: 0.00002
+  max_grad_norm: 1.0
+
+models:
+  # Using distilbert for stability
+  critic_model: "distilbert-base-uncased" 
+  batch_size: 4
+  device: "auto"
+
+logging:
+  wandb_project: "mappo-sec-defense"
+  log_interval: 5
