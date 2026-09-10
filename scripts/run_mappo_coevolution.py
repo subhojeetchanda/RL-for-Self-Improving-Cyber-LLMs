@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.trajectory_buffer import CTDETrajectoryBuffer
 from src.centralized_critic import CentralizedCritic
-from src.attacker_policy.mappo_attacker import MAPPOAttacker
+from src.attacker_policy.mappo_attacker import AttackerPolicy
 from src.defender_policy.mappo_defender import MAPPODefender
 from src.coevolution_env import CoevolutionEnv
 from src.evaluation_metrics.wandb_logger import WandbLogger
@@ -28,7 +28,7 @@ def main():
     env = CoevolutionEnv()
     buffer = CTDETrajectoryBuffer()
     critic = CentralizedCritic(config["models"]["critic_model"], device=device)
-    attacker = MAPPOAttacker()
+    attacker = AttackerPolicy()
     defender = MAPPODefender()
     logger = WandbLogger(config=config)
 
