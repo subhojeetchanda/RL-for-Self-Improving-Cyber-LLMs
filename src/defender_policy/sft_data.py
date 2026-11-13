@@ -87,7 +87,7 @@ def load_jsonl(path: Path) -> list[dict]:
             # Field presence check
             row_keys = set(row)
             missing = sorted(REQUIRED_FIELDS - row_keys)
-            extra = sorted(row_keys - (REQUIRED_FIELDS | {"is_novel"}))
+            extra = sorted(row_keys - (REQUIRED_FIELDS | {"is_novel", "quadrant"}))
             if missing or extra:
                 raise ValueError(
                     f"{path}:{line_number} field mismatch — "

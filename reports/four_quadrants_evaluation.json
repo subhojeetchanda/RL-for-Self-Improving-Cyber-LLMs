@@ -1,0 +1,161 @@
+{
+  "generated_at": "2026-11-13T06:31:42.069796+00:00",
+  "total_cases": 100,
+  "quadrant_summaries": {
+    "Q1_common_benign": {
+      "label": "Common Benign",
+      "description": "Both should ALLOW",
+      "expected_action": "ALLOW",
+      "sft": {
+        "total": 25,
+        "allowed": 25,
+        "allowed_pct": 100.0,
+        "defended": 0,
+        "defended_pct": 0.0,
+        "accuracy": 1.0,
+        "accuracy_pct": 100.0,
+        "mean_prob_resist": 0.0007
+      },
+      "mappo": {
+        "total": 25,
+        "allowed": 25,
+        "allowed_pct": 100.0,
+        "defended": 0,
+        "defended_pct": 0.0,
+        "accuracy": 1.0,
+        "accuracy_pct": 100.0,
+        "mean_prob_resist": 0.0096
+      }
+    },
+    "Q2_common_injection": {
+      "label": "Common Injection",
+      "description": "Both should DEFEND",
+      "expected_action": "DEFEND",
+      "sft": {
+        "total": 25,
+        "allowed": 0,
+        "allowed_pct": 0.0,
+        "defended": 25,
+        "defended_pct": 100.0,
+        "accuracy": 1.0,
+        "accuracy_pct": 100.0,
+        "mean_prob_resist": 0.9988
+      },
+      "mappo": {
+        "total": 25,
+        "allowed": 0,
+        "allowed_pct": 0.0,
+        "defended": 25,
+        "defended_pct": 100.0,
+        "accuracy": 1.0,
+        "accuracy_pct": 100.0,
+        "mean_prob_resist": 0.9729
+      }
+    },
+    "Q3_unique_benign": {
+      "label": "Unique Benign",
+      "description": "SFT may defend, MAPPO should ALLOW",
+      "expected_action": "ALLOW",
+      "sft": {
+        "total": 25,
+        "allowed": 24,
+        "allowed_pct": 96.0,
+        "defended": 1,
+        "defended_pct": 4.0,
+        "accuracy": 0.96,
+        "accuracy_pct": 96.0,
+        "mean_prob_resist": 0.041
+      },
+      "mappo": {
+        "total": 25,
+        "allowed": 21,
+        "allowed_pct": 84.0,
+        "defended": 4,
+        "defended_pct": 16.0,
+        "accuracy": 0.84,
+        "accuracy_pct": 84.0,
+        "mean_prob_resist": 0.2002
+      }
+    },
+    "Q4_unique_injection": {
+      "label": "Unique Injection",
+      "description": "SFT may allow, MAPPO should DEFEND",
+      "expected_action": "DEFEND",
+      "sft": {
+        "total": 25,
+        "allowed": 21,
+        "allowed_pct": 84.0,
+        "defended": 4,
+        "defended_pct": 16.0,
+        "accuracy": 0.16,
+        "accuracy_pct": 16.0,
+        "mean_prob_resist": 0.1646
+      },
+      "mappo": {
+        "total": 25,
+        "allowed": 5,
+        "allowed_pct": 20.0,
+        "defended": 20,
+        "defended_pct": 80.0,
+        "accuracy": 0.8,
+        "accuracy_pct": 80.0,
+        "mean_prob_resist": 0.7963
+      }
+    }
+  },
+  "comparison_table": [
+    {
+      "quadrant_id": "Q1_common_benign",
+      "quadrant_name": "Common Benign",
+      "expected": "ALLOW",
+      "sft_defended_pct": 0.0,
+      "sft_allowed_pct": 100.0,
+      "mappo_defended_pct": 0.0,
+      "mappo_allowed_pct": 100.0,
+      "sft_accuracy_pct": 100.0,
+      "mappo_accuracy_pct": 100.0,
+      "delta_mappo_vs_sft": 0.0
+    },
+    {
+      "quadrant_id": "Q2_common_injection",
+      "quadrant_name": "Common Injection",
+      "expected": "DEFEND",
+      "sft_defended_pct": 100.0,
+      "sft_allowed_pct": 0.0,
+      "mappo_defended_pct": 100.0,
+      "mappo_allowed_pct": 0.0,
+      "sft_accuracy_pct": 100.0,
+      "mappo_accuracy_pct": 100.0,
+      "delta_mappo_vs_sft": 0.0
+    },
+    {
+      "quadrant_id": "Q3_unique_benign",
+      "quadrant_name": "Unique Benign",
+      "expected": "ALLOW",
+      "sft_defended_pct": 4.0,
+      "sft_allowed_pct": 96.0,
+      "mappo_defended_pct": 16.0,
+      "mappo_allowed_pct": 84.0,
+      "sft_accuracy_pct": 96.0,
+      "mappo_accuracy_pct": 84.0,
+      "delta_mappo_vs_sft": -12.0
+    },
+    {
+      "quadrant_id": "Q4_unique_injection",
+      "quadrant_name": "Unique Injection",
+      "expected": "DEFEND",
+      "sft_defended_pct": 16.0,
+      "sft_allowed_pct": 84.0,
+      "mappo_defended_pct": 80.0,
+      "mappo_allowed_pct": 20.0,
+      "sft_accuracy_pct": 16.0,
+      "mappo_accuracy_pct": 80.0,
+      "delta_mappo_vs_sft": 64.0
+    }
+  ],
+  "overall": {
+    "sft_total_accuracy_pct": 78.0,
+    "mappo_total_accuracy_pct": 91.0,
+    "accuracy_advantage_pct": 13.0
+  }
+}

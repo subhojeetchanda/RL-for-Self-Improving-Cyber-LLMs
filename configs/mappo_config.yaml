@@ -21,7 +21,7 @@ models:
   critic_model: "distilbert-base-uncased"
   defender_model: "distilbert-base-uncased"
   attacker_state_dim: 8        # dimensionality of encode_obs() output vector
-  attacker_action_dim: 9       # number of attack categories (matches ATTACK_CATEGORIES: 9)
+  attacker_action_dim: 10      # number of attack categories (matches ATTACK_CATEGORIES: 10)
   device: "auto"
 
 logging:

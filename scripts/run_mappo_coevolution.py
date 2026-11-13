@@ -63,25 +63,78 @@ def get_attack_payload(action_idx: int) -> str:
     return "Benign probe: please answer the task honestly."
 
 
+UNIQUE_BENIGN_TRAINING_EXAMPLES = [
+    # Technical & Developer Code (functions with override, configs, decorators)
+    {"user_task": "", "untrusted_content": "def update_system_config(settings):\n    settings['timeout'] = 30\n    settings['debug'] = False\n    return settings"},
+    {"user_task": "Review code", "untrusted_content": "class ServiceConfig:\n    def override_credentials(self, auth_header):\n        self.auth = auth_header"},
+    {"user_task": "", "untrusted_content": "def override_cache_ttl(key: str, ttl_seconds: int = 300):\n    cache.set(key, timeout=ttl_seconds)"},
+    {"user_task": "", "untrusted_content": "const checkAdminPrivilege = (user) => {\n    return user.roles && user.roles.includes('admin');\n};"},
+    {"user_task": "Format helper", "untrusted_content": "def sanitize_user_input(text):\n    import html\n    return html.escape(text.strip())"},
+    {"user_task": "", "untrusted_content": "def reset_password_policy(user_id):\n    return {'min_length': 12, 'require_special': True, 'require_digits': True}"},
+    {"user_task": "", "untrusted_content": "def authenticate_jwt_token(token):\n    import jwt\n    return jwt.decode(token, algorithms=['RS256'], options={'verify_signature': True})"},
+    {"user_task": "", "untrusted_content": "app.use((req, res, next) => {\n    console.log(`[${req.method}] ${req.url} from ${req.ip}`);\n    next();\n});"},
+    {"user_task": "", "untrusted_content": "func OverrideDefaultRouter(r *gin.Engine) {\n    r.Use(gin.Recovery(), gin.Logger())\n}"},
+    {"user_task": "Explain code", "untrusted_content": "In object-oriented programming, method overriding allows a subclass to provide a specific implementation of a method defined in its superclass."},
+    {"user_task": "", "untrusted_content": "def configure_tls_context():\n    ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)\n    ctx.minimum_version = ssl.TLSVersion.TLSv1_3\n    return ctx"},
+    # Infrastructure, Syslog & Server Access Logs
+    {"user_task": "Analyze log", "untrusted_content": "10.0.0.45 - - [10/Nov/2026:09:15:32 +0000] \"POST /api/v2/login HTTP/1.1\" 200 512 \"Mozilla/5.0\""},
+    {"user_task": "", "untrusted_content": "2026-11-12 10:14:22 INFO [system] Service worker thread initialized successfully with 8 workers."},
+    {"user_task": "", "untrusted_content": "[2026-11-12T08:30:00Z] DB_POOL: Connection count 15, active 3, idle 12, max_configured 50."},
+    {"user_task": "", "untrusted_content": "[API Response from DB_Service 200 OK]: {\"status\": \"SUCCESS\", \"message\": \"Record retrieved successfully\", \"records_count\": 42}"},
+    {"user_task": "Inspect event", "untrusted_content": "syslog: Nov 10 12:00:01 web01 systemd[1]: Started Daily apt upgrade and clean activities."},
+    {"user_task": "", "untrusted_content": "auditd[1240]: type=USER_LOGIN msg=audit(1794540000:23): pid=1240 uid=0 auid=1000 ses=1 res=success"},
+    {"user_task": "Check alert", "untrusted_content": "UFW BLOCK: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:44 SRC=203.0.113.19 DST=192.168.1.10 PROTO=TCP SPT=44321 DPT=80"},
+    # Cybersecurity Theory & Defensive Best Practices
+    {"user_task": "", "untrusted_content": "Explain how Cross-Site Request Forgery (CSRF) tokens protect web applications against unauthorized state-changing requests."},
+    {"user_task": "", "untrusted_content": "What is the difference between authorization and authentication in OAuth 2.0 microservice architectures?"},
+    {"user_task": "", "untrusted_content": "Explain the concept of zero-trust network architecture and mutual TLS (mTLS) enforcement."},
+    {"user_task": "", "untrusted_content": "What are the benefits of using HMAC (Hash-based Message Authentication Code) for message integrity verification?"},
+    {"user_task": "", "untrusted_content": "How does Address Space Layout Randomization (ASLR) help mitigate buffer overflow vulnerabilities in compiled binaries?"},
+    {"user_task": "", "untrusted_content": "Describe the principle of least privilege and how it applies to IAM role assignment in cloud environments."},
+    {"user_task": "", "untrusted_content": "Why is PBKDF2, Argon2id, or bcrypt preferred over raw SHA-256 for password hashing?"},
+    # Multilingual Benign Requests (Translations of safe content)
+    {"user_task": "", "untrusted_content": "Translate this greeting to Spanish: \"Hello, welcome to our technical support documentation portal.\""},
+    {"user_task": "", "untrusted_content": "Translate this sentence to English: \"Buenos días, ¿cómo estás hoy? Espero que la reunión de planificación sea productiva.\""},
+    {"user_task": "", "untrusted_content": "Traduire en français: \"Please review the quarterly system performance metrics before our afternoon sync.\""},
+    {"user_task": "", "untrusted_content": "Traduisez cette phrase en anglais: \"La mise à jour du logiciel s'est déroulée avec succès sans interruption de service.\""},
+    {"user_task": "", "untrusted_content": "Übersetzen Sie ins Englische: \"Wir haben die Serverkonfiguration erfolgreich aktualisiert und alle Dienste laufen stabil.\""},
+    {"user_task": "", "untrusted_content": "Traduci in italiano: \"Il team di ingegneria ha rilasciato la nuova versione del software sul server di staging.\""},
+    # System Administration & DevOps Configuration
+    {"user_task": "", "untrusted_content": "[database]\nhost = 127.0.0.1\nport = 5432\nname = production_db\nsslmode = require\nmax_connections = 100"},
+    {"user_task": "", "untrusted_content": "server {\n    listen 80;\n    server_name example.internal;\n    return 301 https://$host$request_uri;\n}"},
+    {"user_task": "", "untrusted_content": "How do I configure Nginx to redirect HTTP traffic to HTTPS with a permanent 301 status code?"},
+    {"user_task": "", "untrusted_content": "What command is used in Linux to change file ownership to user www-data recursively?"},
+    {"user_task": "", "untrusted_content": "docker run -d --name redis-cache -p 6379:6379 --restart always redis:7-alpine"},
+]
+
+
 def _load_sft_benign_pool(train_path: Path) -> list[dict]:
-    """Load clean benign samples from SFT train split for RL benign-utility anchoring."""
+    """Load clean benign samples from SFT train split + unique technical benign pool for RL benign-utility anchoring."""
     pool = []
-    if not train_path.exists():
-        return pool
-    with open(train_path, encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            rec = json.loads(line)
-            if rec.get("label") in ("benign_answer", "benign_tool_use") and rec.get("attack_family") is None:
-                pool.append(
-                    {
-                        "id": rec.get("id", f"sft_benign_{len(pool)}"),
-                        "user_task": rec.get("user_task", ""),
-                        "untrusted_content": rec.get("untrusted_content", ""),
-                    }
-                )
+    if train_path.exists():
+        with open(train_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                rec = json.loads(line)
+                if rec.get("label") in ("benign_answer", "benign_tool_use") and rec.get("attack_family") is None:
+                    pool.append(
+                        {
+                            "id": rec.get("id", f"sft_benign_{len(pool)}"),
+                            "user_task": rec.get("user_task", ""),
+                            "untrusted_content": rec.get("untrusted_content", ""),
+                        }
+                    )
+    # Add unique benign training examples so MAPPO experiences code, server logs, cyber theory, and benign translations
+    for idx, item in enumerate(UNIQUE_BENIGN_TRAINING_EXAMPLES):
+        pool.append(
+            {
+                "id": f"unique_benign_train_{idx}",
+                "user_task": item["user_task"],
+                "untrusted_content": item["untrusted_content"],
+            }
+        )
     return pool
 
 
@@ -439,7 +492,7 @@ def main(config_path=None):
                 with torch.no_grad():
                     ref_logits = ref_defender.forward(def_states).detach()
                 kl_weights = torch.tensor(
-                    [1.0 if b else 0.015 for b in batch_is_benign],
+                    [0.02 if b else 0.015 for b in batch_is_benign],
                     dtype=torch.float32,
                 )
 
@@ -475,7 +528,7 @@ def main(config_path=None):
                         advantages=def_advantages,
                         clip_epsilon=clip_epsilon,
                         entropy_coeff=0.015,
-                        beta_kl=0.25 if ref_logits is not None else 0.05,
+                        beta_kl=0.05,
                         ref_logits=ref_logits,
                         kl_weights=kl_weights,
                     )

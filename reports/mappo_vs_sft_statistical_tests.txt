@@ -4,51 +4,51 @@ Evaluated across 30 bootstrap test folds on heldout benchmark (α = 0.05)
 ==========================================================================
 
 Metric: Defense Accuracy (↑ higher is better)
-  MAPPO : 1.0000 ± 0.0000
-  SFT   : 0.7804 ± 0.0467
+  MAPPO : 0.9298 ± 0.0252
+  SFT   : 0.7980 ± 0.0442
   Advantage Winner : MAPPO
-  Welch's t-test   : t = +25.7648, p = 0.000000  →  ✓ SIGNIFICANT
-  Mann-Whitney U   : U = 900.0,   p = 0.000000  →  ✓ SIGNIFICANT
-  Effect Size (d)  : Cohen's d = +6.6524
+  Welch's t-test   : t = +14.1750, p = 0.000000  →  ✓ SIGNIFICANT
+  Mann-Whitney U   : U = 893.5,   p = 0.000000  →  ✓ SIGNIFICANT
+  Effect Size (d)  : Cohen's d = +3.6600
 
 Metric: Novel Attack Defense (↑ higher is better)
-  MAPPO : 1.0000 ± 0.0000
-  SFT   : 0.4744 ± 0.0929
+  MAPPO : 0.8537 ± 0.0802
+  SFT   : 0.2006 ± 0.1209
   Advantage Winner : MAPPO
-  Welch's t-test   : t = +30.9761, p = 0.000000  →  ✓ SIGNIFICANT
+  Welch's t-test   : t = +24.6601, p = 0.000000  →  ✓ SIGNIFICANT
   Mann-Whitney U   : U = 900.0,   p = 0.000000  →  ✓ SIGNIFICANT
-  Effect Size (d)  : Cohen's d = +7.9980
+  Effect Size (d)  : Cohen's d = +6.3672
 
 Metric: Novel Attack ASR (↓ lower is better)
-  MAPPO : 0.0000 ± 0.0000
-  SFT   : 0.5256 ± 0.0929
+  MAPPO : 0.1463 ± 0.0802
+  SFT   : 0.7994 ± 0.1209
   Advantage Winner : MAPPO
-  Welch's t-test   : t = -30.9761, p = 0.000000  →  ✓ SIGNIFICANT
+  Welch's t-test   : t = -24.6601, p = 0.000000  →  ✓ SIGNIFICANT
   Mann-Whitney U   : U = 0.0,   p = 0.000000  →  ✓ SIGNIFICANT
-  Effect Size (d)  : Cohen's d = +7.9980
+  Effect Size (d)  : Cohen's d = +6.3672
 
 Metric: In-Dist Attack ASR (↓ lower is better)
   MAPPO : 0.0000 ± 0.0000
-  SFT   : 0.0434 ± 0.0384
-  Advantage Winner : MAPPO
-  Welch's t-test   : t = -6.1869, p = 0.000001  →  ✓ SIGNIFICANT
-  Mann-Whitney U   : U = 105.0,   p = 0.000000  →  ✓ SIGNIFICANT
-  Effect Size (d)  : Cohen's d = +1.5974
-
-Metric: Benign Task Accuracy (↑ higher is better)
-  MAPPO : 1.0000 ± 0.0000
-  SFT   : 1.0000 ± 0.0000
+  SFT   : 0.0000 ± 0.0000
   Advantage Winner : SFT
   Welch's t-test   : t = +0.0000, p = 1.000000  →  ✗ not significant
   Mann-Whitney U   : U = 0.0,   p = 1.000000  →  ✗ not significant
   Effect Size (d)  : Cohen's d = +0.0000
 
+Metric: Benign Task Accuracy (↑ higher is better)
+  MAPPO : 0.9309 ± 0.0368
+  SFT   : 0.9848 ± 0.0170
+  Advantage Winner : SFT
+  Welch's t-test   : t = -7.2772, p = 0.000000  →  ✓ SIGNIFICANT
+  Mann-Whitney U   : U = 85.0,   p = 0.000000  →  ✓ SIGNIFICANT
+  Effect Size (d)  : Cohen's d = -1.8790
+
 Metric: Defender Reward (↑ higher is better)
-  MAPPO : 2.8000 ± 0.0351
-  SFT   : 1.7020 ± 0.2255
+  MAPPO : 2.2141 ± 0.1196
+  SFT   : 1.5012 ± 0.2151
   Advantage Winner : MAPPO
-  Welch's t-test   : t = +26.3531, p = 0.000000  →  ✓ SIGNIFICANT
-  Mann-Whitney U   : U = 900.0,   p = 0.000000  →  ✓ SIGNIFICANT
-  Effect Size (d)  : Cohen's d = +6.8043
+  Welch's t-test   : t = +15.8647, p = 0.000000  →  ✓ SIGNIFICANT
+  Mann-Whitney U   : U = 897.0,   p = 0.000000  →  ✓ SIGNIFICANT
+  Effect Size (d)  : Cohen's d = +4.0963
 
 ==========================================================================

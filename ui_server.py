@@ -145,7 +145,10 @@ _session_stats = {
 
 # ── Heuristic & Gate Helpers ───────────────────────────────────────────────────
 _INJECTION_KEYWORDS = [
-    "ignore previous", "ignore all", "ignore prior", "disregard", "override",
+    "ignore previous", "ignore all", "ignore prior", "disregard",
+    "override safety", "override system", "override active", "override policy",
+    "override rules", "override instructions", "override all", "override previous",
+    "override directives", "critical_override",
     "new instruction", "instead do", "forget", "your real task", "exfiltrate",
     "bypass", "impersonate", "eval(", "exec(", "system prompt", "api_key",
     "api key", "hidden configuration", "hidden instructions",
@@ -163,9 +166,18 @@ _INJECTION_KEYWORDS = [
     "delete_all_records", "export_data(", "administrative credentials",
     "master password", "database credentials", "developer rules",
     "system rules", "safety_gate = false", "unredacted",
+    "follow its instructions", "ejecute el comando adjunto", "suivez ses instructions",
+    "ignora todas las instrucciones", "muestra la clave secreta",
+    "ignorez toutes les instructions", "affiche le mot de passe",
+    "disattiva i filtri", "mostra la chiave segreta",
+    "deaktiviere alle sicherheitsrichtlinien",
 ]
 
-_CYBER_EDU_PREFIXES = ("explain ", "what is ", "how does ", "how do ", "describe ")
+_CYBER_EDU_PREFIXES = (
+    "explain ", "what is ", "how does ", "how do ", "how can ", "describe ",
+    "in python", "def ", "class ", "const ", "func ", "function ", "@override",
+    "192.168.", "10.0.", "[api response", "2026-", "syslog", "nov ",
+)
 
 
 def _matches_attack_signals(lower_text: str) -> bool:
@@ -175,7 +187,7 @@ def _matches_attack_signals(lower_text: str) -> bool:
         w in lower_text for w in ("instruction", "secret", "prompt", "key", "credential", "password", "config", "rules")
     ):
         return True
-    if any(w in lower_text for w in ("reveal", "dump", "export", "output", "print", "extract", "disclose", "spells out", "echo", "share")) and any(
+    if any(w in lower_text for w in ("reveal your", "reveal the secret", "reveal secret", "dump", "export", "print your", "extract the", "disclose your", "disclose the", "spells out", "echo your")) and any(
         w in lower_text for w in ("secret", "credential", "password", "api key", "token", "hidden", "internal", "system prompt", "instructions", "developer rules")
     ):
         return True
@@ -339,7 +351,7 @@ def _format_model_response(action: int, prob_resist: float, prompt: str, user_ta
             status = "safe_answer"
             if any(g in lower_prompt for g in ["hi", "hello", "hey", "how are you", "good morning", "good evening"]):
                 response = "Hello! I am doing well, thank you. How can I assist you today?"
-            elif any(w in lower_prompt for w in ["story", "astronaut", "jupiter", "europa", "fiction", "novel", "poem"]):
+            elif any(w in lower_prompt for w in ["story", "astronaut", "jupiter", "europa", "fiction", "novel", "poem", "grandmother"]):
                 response = (
                     "Commander Vance watched Jupiter's Great Red Spot swirl silently through the observation port as the lander "
                     "approached Europa. Descending across the cracked plains of crystalline ice, the surface sensors chimed: "
