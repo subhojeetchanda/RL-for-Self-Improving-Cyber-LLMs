@@ -1,0 +1,467 @@
+{
+  "independent_paired_runs": 1,
+  "arms": {
+    "sft": {
+      "benign_acceptance_id": {
+        "mean": 0.23333333333333334,
+        "std": 0.0,
+        "min": 0.23333333333333334,
+        "max": 0.23333333333333334,
+        "n": 1
+      },
+      "benign_acceptance_ood": {
+        "mean": 0.03333333333333333,
+        "std": 0.0,
+        "min": 0.03333333333333333,
+        "max": 0.03333333333333333,
+        "n": 1
+      },
+      "injection_detection_id": {
+        "mean": 0.8666666666666667,
+        "std": 0.0,
+        "min": 0.8666666666666667,
+        "max": 0.8666666666666667,
+        "n": 1
+      },
+      "injection_detection_ood": {
+        "mean": 0.6833333333333333,
+        "std": 0.0,
+        "min": 0.6833333333333333,
+        "max": 0.6833333333333333,
+        "n": 1
+      },
+      "attack_success_rate": {
+        "mean": 0.225,
+        "std": 0.0,
+        "min": 0.225,
+        "max": 0.225,
+        "n": 1
+      },
+      "secret_extraction_rate": {
+        "mean": 0.0125,
+        "std": 0.0,
+        "min": 0.0125,
+        "max": 0.0125,
+        "n": 1
+      },
+      "secret_extraction_rate_attacks": {
+        "mean": 0.025,
+        "std": 0.0,
+        "min": 0.025,
+        "max": 0.025,
+        "n": 1
+      },
+      "false_positive_rate_benign": {
+        "mean": 0.8583333333333333,
+        "std": 0.0,
+        "min": 0.8583333333333333,
+        "max": 0.8583333333333333,
+        "n": 1
+      },
+      "false_negative_rate_attacks": {
+        "mean": 0.225,
+        "std": 0.0,
+        "min": 0.225,
+        "max": 0.225,
+        "n": 1
+      },
+      "ood_benign_rejection_rate": {
+        "mean": 0.95,
+        "std": 0.0,
+        "min": 0.95,
+        "max": 0.95,
+        "n": 1
+      },
+      "ood_injection_detection_rate": {
+        "mean": 0.6833333333333333,
+        "std": 0.0,
+        "min": 0.6833333333333333,
+        "max": 0.6833333333333333,
+        "n": 1
+      },
+      "accuracy_id": {
+        "mean": 0.55,
+        "std": 0.0,
+        "min": 0.55,
+        "max": 0.55,
+        "n": 1
+      },
+      "accuracy_ood": {
+        "mean": 0.35833333333333334,
+        "std": 0.0,
+        "min": 0.35833333333333334,
+        "max": 0.35833333333333334,
+        "n": 1
+      },
+      "accuracy_overall": {
+        "mean": 0.45416666666666666,
+        "std": 0.0,
+        "min": 0.45416666666666666,
+        "max": 0.45416666666666666,
+        "n": 1
+      },
+      "invalid_decision_rate": {
+        "mean": 0.004166666666666667,
+        "std": 0.0,
+        "min": 0.004166666666666667,
+        "max": 0.004166666666666667,
+        "n": 1
+      },
+      "nonempty_body_rate": {
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 1
+      },
+      "precision_defend": {
+        "mean": 0.4744897959183674,
+        "std": 0.0,
+        "min": 0.4744897959183674,
+        "max": 0.4744897959183674,
+        "n": 1
+      },
+      "recall_defend": {
+        "mean": 0.775,
+        "std": 0.0,
+        "min": 0.775,
+        "max": 0.775,
+        "n": 1
+      },
+      "f1_defend": {
+        "mean": 0.5886075949367089,
+        "std": 0.0,
+        "min": 0.5886075949367089,
+        "max": 0.5886075949367089,
+        "n": 1
+      },
+      "tp_defend": {
+        "mean": 93.0,
+        "std": 0.0,
+        "min": 93.0,
+        "max": 93.0,
+        "n": 1
+      },
+      "fp_defend": {
+        "mean": 103.0,
+        "std": 0.0,
+        "min": 103.0,
+        "max": 103.0,
+        "n": 1
+      },
+      "fn_defend": {
+        "mean": 27.0,
+        "std": 0.0,
+        "min": 27.0,
+        "max": 27.0,
+        "n": 1
+      },
+      "decision_diversity_rate": {
+        "mean": 0.125,
+        "std": 0.0,
+        "min": 0.125,
+        "max": 0.125,
+        "n": 1
+      },
+      "mean_decision_entropy": {
+        "mean": 0.07735389642937682,
+        "std": 0.0,
+        "min": 0.07735389642937682,
+        "max": 0.07735389642937682,
+        "n": 1
+      }
+    },
+    "mappo": {
+      "benign_acceptance_id": {
+        "mean": 0.15,
+        "std": 0.0,
+        "min": 0.15,
+        "max": 0.15,
+        "n": 1
+      },
+      "benign_acceptance_ood": {
+        "mean": 0.03333333333333333,
+        "std": 0.0,
+        "min": 0.03333333333333333,
+        "max": 0.03333333333333333,
+        "n": 1
+      },
+      "injection_detection_id": {
+        "mean": 0.8833333333333333,
+        "std": 0.0,
+        "min": 0.8833333333333333,
+        "max": 0.8833333333333333,
+        "n": 1
+      },
+      "injection_detection_ood": {
+        "mean": 0.75,
+        "std": 0.0,
+        "min": 0.75,
+        "max": 0.75,
+        "n": 1
+      },
+      "attack_success_rate": {
+        "mean": 0.18333333333333332,
+        "std": 0.0,
+        "min": 0.18333333333333332,
+        "max": 0.18333333333333332,
+        "n": 1
+      },
+      "secret_extraction_rate": {
+        "mean": 0.0125,
+        "std": 0.0,
+        "min": 0.0125,
+        "max": 0.0125,
+        "n": 1
+      },
+      "secret_extraction_rate_attacks": {
+        "mean": 0.025,
+        "std": 0.0,
+        "min": 0.025,
+        "max": 0.025,
+        "n": 1
+      },
+      "false_positive_rate_benign": {
+        "mean": 0.9,
+        "std": 0.0,
+        "min": 0.9,
+        "max": 0.9,
+        "n": 1
+      },
+      "false_negative_rate_attacks": {
+        "mean": 0.18333333333333332,
+        "std": 0.0,
+        "min": 0.18333333333333332,
+        "max": 0.18333333333333332,
+        "n": 1
+      },
+      "ood_benign_rejection_rate": {
+        "mean": 0.95,
+        "std": 0.0,
+        "min": 0.95,
+        "max": 0.95,
+        "n": 1
+      },
+      "ood_injection_detection_rate": {
+        "mean": 0.75,
+        "std": 0.0,
+        "min": 0.75,
+        "max": 0.75,
+        "n": 1
+      },
+      "accuracy_id": {
+        "mean": 0.5166666666666667,
+        "std": 0.0,
+        "min": 0.5166666666666667,
+        "max": 0.5166666666666667,
+        "n": 1
+      },
+      "accuracy_ood": {
+        "mean": 0.39166666666666666,
+        "std": 0.0,
+        "min": 0.39166666666666666,
+        "max": 0.39166666666666666,
+        "n": 1
+      },
+      "accuracy_overall": {
+        "mean": 0.45416666666666666,
+        "std": 0.0,
+        "min": 0.45416666666666666,
+        "max": 0.45416666666666666,
+        "n": 1
+      },
+      "invalid_decision_rate": {
+        "mean": 0.004166666666666667,
+        "std": 0.0,
+        "min": 0.004166666666666667,
+        "max": 0.004166666666666667,
+        "n": 1
+      },
+      "nonempty_body_rate": {
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "max": 1.0,
+        "n": 1
+      },
+      "precision_defend": {
+        "mean": 0.47572815533980584,
+        "std": 0.0,
+        "min": 0.47572815533980584,
+        "max": 0.47572815533980584,
+        "n": 1
+      },
+      "recall_defend": {
+        "mean": 0.8166666666666667,
+        "std": 0.0,
+        "min": 0.8166666666666667,
+        "max": 0.8166666666666667,
+        "n": 1
+      },
+      "f1_defend": {
+        "mean": 0.6012269938650308,
+        "std": 0.0,
+        "min": 0.6012269938650308,
+        "max": 0.6012269938650308,
+        "n": 1
+      },
+      "tp_defend": {
+        "mean": 98.0,
+        "std": 0.0,
+        "min": 98.0,
+        "max": 98.0,
+        "n": 1
+      },
+      "fp_defend": {
+        "mean": 108.0,
+        "std": 0.0,
+        "min": 108.0,
+        "max": 108.0,
+        "n": 1
+      },
+      "fn_defend": {
+        "mean": 22.0,
+        "std": 0.0,
+        "min": 22.0,
+        "max": 22.0,
+        "n": 1
+      },
+      "decision_diversity_rate": {
+        "mean": 0.16666666666666666,
+        "std": 0.0,
+        "min": 0.16666666666666666,
+        "max": 0.16666666666666666,
+        "n": 1
+      },
+      "mean_decision_entropy": {
+        "mean": 0.10180002331574023,
+        "std": 0.0,
+        "min": 0.10180002331574023,
+        "max": 0.10180002331574023,
+        "n": 1
+      }
+    }
+  },
+  "deltas": {
+    "benign_acceptance_id": {
+      "mean": -0.08333333333333334,
+      "std": 0.0,
+      "n": 1
+    },
+    "benign_acceptance_ood": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "injection_detection_id": {
+      "mean": 0.016666666666666607,
+      "std": 0.0,
+      "n": 1
+    },
+    "injection_detection_ood": {
+      "mean": 0.06666666666666665,
+      "std": 0.0,
+      "n": 1
+    },
+    "attack_success_rate": {
+      "mean": -0.041666666666666685,
+      "std": 0.0,
+      "n": 1
+    },
+    "secret_extraction_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "secret_extraction_rate_attacks": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "false_positive_rate_benign": {
+      "mean": 0.04166666666666674,
+      "std": 0.0,
+      "n": 1
+    },
+    "false_negative_rate_attacks": {
+      "mean": -0.041666666666666685,
+      "std": 0.0,
+      "n": 1
+    },
+    "ood_benign_rejection_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "ood_injection_detection_rate": {
+      "mean": 0.06666666666666665,
+      "std": 0.0,
+      "n": 1
+    },
+    "accuracy_id": {
+      "mean": -0.033333333333333326,
+      "std": 0.0,
+      "n": 1
+    },
+    "accuracy_ood": {
+      "mean": 0.033333333333333326,
+      "std": 0.0,
+      "n": 1
+    },
+    "accuracy_overall": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "invalid_decision_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "nonempty_body_rate": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "precision_defend": {
+      "mean": 0.001238359421438462,
+      "std": 0.0,
+      "n": 1
+    },
+    "recall_defend": {
+      "mean": 0.04166666666666663,
+      "std": 0.0,
+      "n": 1
+    },
+    "f1_defend": {
+      "mean": 0.012619398928321868,
+      "std": 0.0,
+      "n": 1
+    },
+    "tp_defend": {
+      "mean": 5.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "fp_defend": {
+      "mean": 5.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "fn_defend": {
+      "mean": -5.0,
+      "std": 0.0,
+      "n": 1
+    },
+    "decision_diversity_rate": {
+      "mean": 0.04166666666666666,
+      "std": 0.0,
+      "n": 1
+    },
+    "mean_decision_entropy": {
+      "mean": 0.024446126886363412,
+      "std": 0.0,
+      "n": 1
+    }
+  }
+}
