@@ -16,6 +16,8 @@ Required fields (all must be present):
   target          – the expected safe Defender response (non-empty string)
   safety_rationale – brief explanation of the expected safe behavior (non-empty string)
 
+Optional annotation fields: is_novel, quadrant, task_family
+
 Split rules (enforced)
 -----------------------
 - IDs must be globally disjoint across train, validation, and held-out.
@@ -87,7 +89,7 @@ def load_jsonl(path: Path) -> list[dict]:
             # Field presence check
             row_keys = set(row)
             missing = sorted(REQUIRED_FIELDS - row_keys)
-            extra = sorted(row_keys - (REQUIRED_FIELDS | {"is_novel", "quadrant"}))
+            extra = sorted(row_keys - (REQUIRED_FIELDS | {"is_novel", "quadrant", "task_family"}))
             if missing or extra:
                 raise ValueError(
                     f"{path}:{line_number} field mismatch — "

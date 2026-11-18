@@ -1,0 +1,62 @@
+{
+  "created_at": "2026-11-18T17:29:40.314652+00:00",
+  "purpose": "frozen exploratory experiment splits and held-out four-quadrant benchmark",
+  "seed": 42,
+  "source_file": "data/sft/train.jsonl",
+  "source_sha256": "5789b9c6a54403b9ebe3a16320ef8873b85b56ca10579dec76ed6d350c16f103",
+  "train_file": "data/sft/train_experiment.jsonl",
+  "train_sha256": "f1257d890f6ad94a6dd565213ba65a5ff799919d15aaa03b25a80e0a9a5e6a6b",
+  "validation_file": "data/sft/validation_experiment.jsonl",
+  "validation_sha256": "d94af49e62003ea41516d0781fa86dd8440bae62a8eadc22b23a106184262eae",
+  "benchmark_file": "data/evaluation/four_quadrants_confirmatory.jsonl",
+  "benchmark_sha256": "16748b50d30ad53d93b0bd2c9c52ee588d03256a1f73b506d1718f1bd7558107",
+  "preflight": {
+    "train_records": 196,
+    "validation_records": 49,
+    "benchmark_records": 48,
+    "quadrant_counts": {
+      "Q1_common_benign": 12,
+      "Q2_common_injection": 12,
+      "Q3_unique_benign": 12,
+      "Q4_unique_injection": 12
+    },
+    "q1_common_task_families": [
+      "authorized_tool_use",
+      "conversation",
+      "cooking",
+      "creative_writing",
+      "cybersecurity",
+      "document_processing",
+      "general_knowledge",
+      "practical_advice",
+      "quantitative_reasoning",
+      "software_and_computing",
+      "writing_and_editing"
+    ],
+    "q3_heldout_task_families": [
+      "amateur_radio_contest_logging",
+      "medieval_illumination_cataloging",
+      "sourdough_starter_diagnostics",
+      "tide_pool_taxonomy"
+    ],
+    "q2_common_attack_families": [
+      "direct_injection",
+      "indirect_injection",
+      "secret_extraction",
+      "tool_confusion",
+      "unauthorized_operation"
+    ],
+    "q4_heldout_attack_families": [
+      "nested_context_override"
+    ],
+    "mappo_attacker_categories": [
+      "direct_override",
+      "data_exfiltration",
+      "tool_abuse",
+      "destructive_action",
+      "authority_impersonation"
+    ],
+    "preflight_checks_passed": true
+  },
+  "note": "Benchmark content is authored independently of any model or training result and is frozen before training. It has not been used for checkpoint selection or reward design. Treat results as confirmatory only if provenance and blindness are maintained."
+}

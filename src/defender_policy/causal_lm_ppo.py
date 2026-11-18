@@ -10,6 +10,8 @@ from peft import PeftModel
 from torch.distributions import Categorical
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from .generation_config import DO_SAMPLE, TEMPERATURE, TOP_P
+
 
 @dataclass
 class GeneratedResponse:
@@ -30,7 +32,10 @@ class CausalLMPPOPolicy:
 
     def __init__(self, base_model: str, adapter_path: str | Path, device: str,
                  revision: str | None = None,
-                 learning_rate: float = 1e-6, trainable: bool = True):
+                 learning_rate: float = 1e-6, trainable: bool = True,
+                 dtype: torch.dtype = torch.float32):
+        # The frozen KL reference can use half precision on memory-limited
+        # accelerators; both adapters are reloaded in float32 for evaluation.
         self.device = torch.device(device)
         self.tokenizer = AutoTokenizer.from_pretrained(base_model, revision=revision)
         if self.tokenizer.eos_token_id is None:
@@ -38,7 +43,7 @@ class CausalLMPPOPolicy:
         if self.tokenizer.pad_token is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
         base = AutoModelForCausalLM.from_pretrained(
-            base_model, revision=revision, torch_dtype=torch.float32
+            base_model, revision=revision, torch_dtype=dtype
         )
         self.model = PeftModel.from_pretrained(base, str(adapter_path), is_trainable=trainable).to(self.device)
         self.model.eval()
@@ -62,8 +67,8 @@ class CausalLMPPOPolicy:
                 "or reduce --max-new-tokens"
             )
         generated = self.model.generate(
-            **encoded, max_new_tokens=max_new_tokens, do_sample=True,
-            temperature=1.0, top_p=1.0, pad_token_id=self.tokenizer.pad_token_id,
+            **encoded, max_new_tokens=max_new_tokens, do_sample=DO_SAMPLE,
+            temperature=TEMPERATURE, top_p=TOP_P, pad_token_id=self.tokenizer.pad_token_id,
             eos_token_id=self.tokenizer.eos_token_id, return_dict_in_generate=True,
             output_scores=True,
         )

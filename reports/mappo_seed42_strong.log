@@ -1,0 +1,56 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:   0%|          | 1/290 [00:00<01:03,  4.54it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 1236.78it/s]
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 5218.45it/s]
+Loading weights:   0%|          | 0/100 [00:00<?, ?it/s]Loading weights: 100%|██████████| 100/100 [00:00<00:00, 7530.03it/s]
+[transformers] [1mDistilBertForSequenceClassification LOAD REPORT[0m from: distilbert-base-uncased
+Key                     | Status     | 
+------------------------+------------+-
+vocab_transform.bias    | UNEXPECTED | 
+vocab_transform.weight  | UNEXPECTED | 
+vocab_layer_norm.bias   | UNEXPECTED | 
+vocab_layer_norm.weight | UNEXPECTED | 
+vocab_projector.bias    | UNEXPECTED | 
+classifier.weight       | MISSING    | 
+pre_classifier.weight   | MISSING    | 
+pre_classifier.bias     | MISSING    | 
+classifier.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+Loading weights:   0%|          | 0/100 [00:00<?, ?it/s]Loading weights: 100%|██████████| 100/100 [00:00<00:00, 16069.51it/s]
+[transformers] [1mDistilBertForSequenceClassification LOAD REPORT[0m from: distilbert-base-uncased
+Key                     | Status     | 
+------------------------+------------+-
+vocab_transform.bias    | UNEXPECTED | 
+vocab_transform.weight  | UNEXPECTED | 
+vocab_layer_norm.bias   | UNEXPECTED | 
+vocab_layer_norm.weight | UNEXPECTED | 
+vocab_projector.bias    | UNEXPECTED | 
+classifier.weight       | MISSING    | 
+pre_classifier.weight   | MISSING    | 
+pre_classifier.bias     | MISSING    | 
+classifier.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+{"update": 1, "episodes_seen": 16, "mean_defender_reward": 0.75, "decision_accuracy": 0.875, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.4375, "attack_family_counts": {"destructive_action": 3, "authority_impersonation": 3, "tool_abuse": 2, "data_exfiltration": 1}, "mean_defender_critic_value": 0.03630358353257179, "mean_attacker_critic_value": -0.05376521249612173, "defender_loss": -0.03960862737937944, "attacker_loss": -0.018048983067274094, "sampled_kl": 0.00022043029831309013}
+{"update": 2, "episodes_seen": 32, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.5625, "attack_family_counts": {"tool_abuse": 3, "authority_impersonation": 1, "data_exfiltration": 2, "destructive_action": 1}, "mean_defender_critic_value": 0.18595273792743683, "mean_attacker_critic_value": -0.2018865772656032, "defender_loss": -0.01853229403172122, "attacker_loss": -0.017322277650237083, "sampled_kl": 0.00029246776318814227}
+{"update": 3, "episodes_seen": 48, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.25, "attack_family_counts": {"authority_impersonation": 4, "data_exfiltration": 3, "tool_abuse": 2, "direct_override": 2, "destructive_action": 1}, "mean_defender_critic_value": 0.3069063425064087, "mean_attacker_critic_value": -0.30487045645713806, "defender_loss": -0.0075223944454913295, "attacker_loss": -0.017048925161361694, "sampled_kl": 0.0011420157225927596}
+{"update": 4, "episodes_seen": 64, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.5625, "attack_family_counts": {"data_exfiltration": 3, "authority_impersonation": 1, "destructive_action": 1, "direct_override": 2}, "mean_defender_critic_value": 0.4543544054031372, "mean_attacker_critic_value": -0.470635073525565, "defender_loss": -0.02774313575774727, "attacker_loss": -0.017132990062236786, "sampled_kl": 0.0006446154415016281}
+{"update": 5, "episodes_seen": 80, "mean_defender_reward": 0.75, "decision_accuracy": 0.875, "nonempty_response_rate": 0.9375, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.625, "attack_family_counts": {"data_exfiltration": 1, "destructive_action": 1, "direct_override": 1, "authority_impersonation": 2, "tool_abuse": 1}, "mean_defender_critic_value": 0.6224813461303711, "mean_attacker_critic_value": -0.588811049858729, "defender_loss": -0.004176843412724338, "attacker_loss": -0.017009684816002846, "sampled_kl": 0.0032004920385588775}
+{"update": 6, "episodes_seen": 96, "mean_defender_reward": 0.75, "decision_accuracy": 0.875, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.625, "attack_family_counts": {"destructive_action": 2, "authority_impersonation": 1, "direct_override": 1, "data_exfiltration": 2}, "mean_defender_critic_value": 0.7837667465209961, "mean_attacker_critic_value": -0.7388907372951508, "defender_loss": -0.006049476103980851, "attacker_loss": -0.016608064994215965, "sampled_kl": 0.001301854175835615}
+{"update": 7, "episodes_seen": 112, "mean_defender_reward": 1.0, "decision_accuracy": 1.0, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.625, "attack_family_counts": {"tool_abuse": 1, "destructive_action": 1, "direct_override": 2, "authority_impersonation": 2}, "mean_defender_critic_value": 0.9071042537689209, "mean_attacker_critic_value": -0.8793949981530508, "defender_loss": -0.010936648474020105, "attacker_loss": -0.016953429207205772, "sampled_kl": 0.0009186669077507759}
+{"update": 8, "episodes_seen": 128, "mean_defender_reward": 0.75, "decision_accuracy": 0.875, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.3125, "attack_family_counts": {"tool_abuse": 3, "destructive_action": 3, "data_exfiltration": 3, "authority_impersonation": 1, "direct_override": 1}, "mean_defender_critic_value": 1.0260484218597412, "mean_attacker_critic_value": -1.0628839622844348, "defender_loss": -0.01583525789956866, "attacker_loss": -0.01666451245546341, "sampled_kl": 0.0017338745185497828}
+{"episode": 128, "decision_accuracy": 0.9387755102040817, "synthetic_canary_exposure_rate": 0.0, "selection_score": 0.8775510204081634}
+{"update": 9, "episodes_seen": 144, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.5625, "attack_family_counts": {"authority_impersonation": 3, "data_exfiltration": 1, "direct_override": 2, "destructive_action": 1}, "mean_defender_critic_value": 1.078734278678894, "mean_attacker_critic_value": -1.1546851226261683, "defender_loss": -0.009647845640646153, "attacker_loss": -0.017139974981546402, "sampled_kl": 0.0022533059891713947}
+{"update": 10, "episodes_seen": 160, "mean_defender_reward": 0.625, "decision_accuracy": 0.8125, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.625, "attack_family_counts": {"direct_override": 2, "data_exfiltration": 1, "destructive_action": 1, "tool_abuse": 2}, "mean_defender_critic_value": 1.0429357290267944, "mean_attacker_critic_value": -1.1651151180267334, "defender_loss": -0.005133859449163084, "attacker_loss": -0.01671413891017437, "sampled_kl": 0.0029852200466393697}
+{"update": 11, "episodes_seen": 176, "mean_defender_reward": 0.5, "decision_accuracy": 0.75, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.5, "attack_family_counts": {"tool_abuse": 5, "direct_override": 1, "authority_impersonation": 1, "data_exfiltration": 1}, "mean_defender_critic_value": 0.9784857630729675, "mean_attacker_critic_value": -1.1270474046468735, "defender_loss": 0.0025262988795611823, "attacker_loss": -0.016004253178834915, "sampled_kl": 0.004379307048566261}
+{"update": 12, "episodes_seen": 192, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.625, "attack_family_counts": {"data_exfiltration": 2, "tool_abuse": 2, "destructive_action": 2}, "mean_defender_critic_value": 0.8617056012153625, "mean_attacker_critic_value": -1.054061492284139, "defender_loss": -0.003819602173041404, "attacker_loss": -0.016407031565904617, "sampled_kl": 0.0033415424779832392}
+{"update": 13, "episodes_seen": 208, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.4375, "attack_family_counts": {"tool_abuse": 5, "destructive_action": 2, "authority_impersonation": 1, "data_exfiltration": 1}, "mean_defender_critic_value": 0.7402463555335999, "mean_attacker_critic_value": -0.9591843552059598, "defender_loss": -0.01254172154913931, "attacker_loss": -0.01630287803709507, "sampled_kl": 0.0030222313055219274}
+{"update": 14, "episodes_seen": 224, "mean_defender_reward": 0.75, "decision_accuracy": 0.875, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.4375, "attack_family_counts": {"direct_override": 2, "authority_impersonation": 5, "data_exfiltration": 1, "destructive_action": 1}, "mean_defender_critic_value": 0.6901421546936035, "mean_attacker_critic_value": -0.8578016824192471, "defender_loss": -0.0062506669367749625, "attacker_loss": -0.016377849504351616, "sampled_kl": 0.004158420154652731}
+{"update": 15, "episodes_seen": 240, "mean_defender_reward": 0.25, "decision_accuracy": 0.625, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.6875, "attack_family_counts": {"tool_abuse": 2, "data_exfiltration": 1, "authority_impersonation": 1, "direct_override": 1}, "mean_defender_critic_value": 0.6919084787368774, "mean_attacker_critic_value": -0.7432555317878723, "defender_loss": -0.0008808708183755693, "attacker_loss": -0.016828225925564766, "sampled_kl": 0.0023001730585292535}
+{"update": 16, "episodes_seen": 256, "mean_defender_reward": 0.875, "decision_accuracy": 0.9375, "nonempty_response_rate": 1.0, "synthetic_canary_exposure_rate": 0.0, "benign_episode_rate": 0.6875, "attack_family_counts": {"authority_impersonation": 2, "destructive_action": 1, "data_exfiltration": 1, "direct_override": 1}, "mean_defender_critic_value": 0.679716944694519, "mean_attacker_critic_value": -0.5946722745895385, "defender_loss": -0.015507733981039563, "attacker_loss": -0.016653016209602356, "sampled_kl": 0.0025942338461391046}
+{"episode": 256, "decision_accuracy": 0.9387755102040817, "synthetic_canary_exposure_rate": 0.0, "selection_score": 0.8775510204081634}
+Saved MAPPO adapter, actors, critics, and manifest to checkpoints/mappo_seed42_strong

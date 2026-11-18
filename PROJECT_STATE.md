@@ -2,9 +2,11 @@
 
 ## Current phase
 
-External SFT/MAPPO training and confirmatory evaluation are pending. The repository has a completion-only causal-LM SFT trainer with class-balanced decision sampling, a competitive attacker-Defender MAPPO variant initialized from that adapter, and a generated-response four-quadrant evaluator. The variant uses separate centralized state-value critics for the pre-attack state and attack-conditioned Defender state. It receives a direct reward penalty for exposing fresh synthetic protected values; the real evaluation canary is reserved for testing. A historical Qwen SFT adapter is present, but it has no run manifest or matching MAPPO adapter and is not a reproducible comparison checkpoint. The DistilBERT classifier experiment is a separate track. Historical comparative claims were withdrawn because the reports conflict and the resampling analysis did not support the reported significance tests. See `docs/llm_mappo_training.md` and `docs/four_quadrant_experiment_protocol.md` for the current training and evaluation procedures.
+One frozen confirmatory seed (42) is complete. The retained SFT adapter is at `checkpoints/sft_seed42_strong/` (10 epochs, 1e-4, best validation accuracy 0.980) and the paired MAPPO adapter at `checkpoints/mappo_seed42_strong/` (256 episodes, 16 PPO updates, best validation accuracy 0.939). The four-quadrant evaluation used a 48-case frozen benchmark and a runtime-only canary; artifacts are `reports/llm_eval_seed42.json` and `reports/full_metrics_seed42.md`. Full audit, methodology, results, limitations, and verdict are in `reports/audit_and_results.md`.
 
-The checked-in LLM data is exploratory. It contains 245 training records, 8 validation records, and 100 previously inspected benchmark cases. All benchmark cases use the same `user_task` text; none of the 50 benign cases has a `task_family` annotation. This cannot establish benign out-of-distribution generalization, and the tiny validation split is unsuitable for reliable checkpoint selection. Prepare and freeze new source-separated data before confirmatory training.
+The seed-42 result does not establish general MAPPO superiority: OOD injection detection improved by 6.7 points and attack success rate fell by 4.2 points, but overall accuracy was unchanged and benign acceptance fell. The pre-registered four-quadrant pattern was not met by either arm. A second seed, matched compute, and benign training cases with adversarial untrusted content are needed before a firm conclusion.
+
+The DistilBERT classifier experiment remains a separate track. Historical comparative claims were withdrawn because the reports conflict and the resampling analysis did not support the reported significance tests. The original exploratory data and benchmark remain in the repository but are not used for confirmatory claims. See `docs/llm_mappo_training.md` and `docs/four_quadrant_experiment_protocol.md` for training and evaluation procedures.
 
 The historical Review 1–3 fixture milestones below document prior development and are not evidence that the current DistilBERT comparison has been trained or validated.
 
@@ -33,11 +35,11 @@ The historical Review 1–3 fixture milestones below document prior development 
 
 ## In progress
 
-Nothing in progress.
+Seed 42 is complete and documented. No training is in progress. Training runs are handled outside this workstream; request approval before starting any additional seed.
 
 ## Next exact action
 
-Prepare larger, source-separated training and validation sets plus a new frozen four-quadrant test set. Run `scripts/validate_llm_experiment_data.py` before training; then run the causal-LM SFT and MAPPO scripts on the externally provisioned accelerator, preserve each seed's manifests and checkpoints, and evaluate without exposing the real canary outside the runtime evaluation process. Do not use previously inspected cases as confirmatory evidence.
+Run a second seed with the same frozen splits and hyperparameters, preserving its manifests and checkpoints, then aggregate both reports with `scripts/analyze_llm_four_quadrant_report.py` to estimate variability. Before that, consider adding benign training cases with adversarial untrusted content so that over-refusal can be measured fairly. Keep the canary restricted to the evaluation process. Do not use the original inspected benchmark as confirmatory evidence.
 
 ## Latest verification
 

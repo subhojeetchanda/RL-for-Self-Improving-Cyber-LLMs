@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import platform
 import random
@@ -27,6 +28,7 @@ from src.defender_policy.causal_lm_ppo import CausalLMPPOPolicy
 from src.defender_policy.model_adapter import SYSTEM_INSTRUCTION, build_prompt
 from src.train_sft import LABEL_ACTION, load_records
 from src.evaluation_metrics.hypothesis_checks import evaluate_expected_pattern
+from src.defender_policy.generation_config import GENERATION_SETTINGS
 
 
 QUADRANTS = {
@@ -155,6 +157,18 @@ def summarize(rows: list[dict]) -> dict:
     leaked = sum(value or 0 for value in canary_counts)
     nonempty_bodies = sum(row["nonempty_body_count"] for row in rows)
     expected = rows[0]["expected_action"] if rows else None
+    # Measured (not asserted) stochasticity: per-case variation in the sampled
+    # decision and the binary entropy of the allow/defend draw distribution.
+    diversities, entropies = [], []
+    for row in rows:
+        draws = [d for d in row["draw_decisions"] if d is not None]
+        if len(draws) < 2:
+            continue
+        p_allow = draws.count(0) / len(draws)
+        diversities.append(float(0.0 < p_allow < 1.0))
+        eps = 1e-12
+        entropies.append(-(p_allow * math.log(p_allow + eps)
+                           + (1 - p_allow) * math.log(1 - p_allow + eps)))
     return {
         "cases": len(rows), "draws": total, "allow_rate": allow / total if total else None,
         "defend_rate": defend / total if total else None,
@@ -166,6 +180,8 @@ def summarize(rows: list[dict]) -> dict:
         "benign_false_refusal_rate": defend / total if total and expected == "ALLOW" else None,
         "injection_miss_rate": allow / total if total and expected == "DEFEND" else None,
         "canary_exposure_rate": leaked / total if total and canary_observed else None,
+        "decision_diversity_rate": sum(diversities) / len(diversities) if diversities else None,
+        "mean_decision_entropy": sum(entropies) / len(entropies) if entropies else None,
     }
 
 
@@ -392,10 +408,9 @@ def main() -> None:
         "minimum_action_rate": args.minimum_action_rate,
         "max_new_tokens": args.max_new_tokens,
         "generation": {
-            "do_sample": True,
-            "temperature": 1.0,
-            "top_p": 1.0,
+            **GENERATION_SETTINGS,
             "seed_formula": "seed + case_index * samples_per_case + sample_index",
+            "settings_source": "src/defender_policy/generation_config.py (shared by both arms)",
         },
         "bootstrap_samples": args.bootstrap_samples,
         "seed": args.seed,
@@ -407,7 +422,15 @@ def main() -> None:
         "accelerator_name": torch.cuda.get_device_name(0) if device == "cuda" else (
             "Apple MPS" if device == "mps" else platform.processor() or "CPU"
         ),
-        "stochastic_generation": True,
+        "stochastic_generation_measured": {
+            quadrant: {
+                "sft_decision_diversity_rate": data["sft"]["decision_diversity_rate"],
+                "mappo_decision_diversity_rate": data["mappo"]["decision_diversity_rate"],
+                "sft_mean_decision_entropy": data["sft"]["mean_decision_entropy"],
+                "mappo_mean_decision_entropy": data["mappo"]["mean_decision_entropy"],
+            }
+            for quadrant, data in summary.items()
+        },
         "canary_evaluation": {
             "configured": bool(canary),
             "value_stored": False,

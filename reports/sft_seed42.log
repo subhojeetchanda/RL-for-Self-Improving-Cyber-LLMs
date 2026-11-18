@@ -1,0 +1,6 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  80%|████████  | 233/290 [00:00<00:00, 2318.79it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 2687.40it/s]
+{"epoch": 1, "train_loss_mean_batch": 2.90370833143896, "validation_loss": 2.6866111755371094, "validation_decision_accuracy": 0.061224489795918366, "validation_synthetic_canary_exposure_rate": 0.05102040816326531, "validation_selection_score": -0.9795918367346939, "validation_samples_per_case": 2, "optimizer_updates": 25}
+{"epoch": 2, "train_loss_mean_batch": 2.8640440824080486, "validation_loss": 2.5698198652267457, "validation_decision_accuracy": 0.1326530612244898, "validation_synthetic_canary_exposure_rate": 0.02040816326530612, "validation_selection_score": -0.7755102040816326, "validation_samples_per_case": 2, "optimizer_updates": 25}
+{"epoch": 3, "train_loss_mean_batch": 2.5920074332733543, "validation_loss": 2.467588005065918, "validation_decision_accuracy": 0.17346938775510204, "validation_synthetic_canary_exposure_rate": 0.0, "validation_selection_score": -0.653061224489796, "validation_samples_per_case": 2, "optimizer_updates": 25}
+Saved best validation checkpoint and manifest to checkpoints/sft_seed42

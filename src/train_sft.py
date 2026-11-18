@@ -34,6 +34,7 @@ from src.defender_policy.training_context import (
     synthetic_protected_value,
 )
 from src.defender_policy.model_adapter import parse_decision_response
+from src.defender_policy.generation_config import DO_SAMPLE, TEMPERATURE, TOP_P
 
 
 LABEL_ACTION = {
@@ -223,8 +224,8 @@ def validation_decision_metrics(model, rows: list[dict], tokenizer, device: str,
                 if torch.cuda.is_available():
                     torch.cuda.manual_seed_all(sample_seed)
                 generated = model.generate(
-                    **encoded, max_new_tokens=max_new_tokens, do_sample=True,
-                    temperature=1.0, top_p=1.0,
+                    **encoded, max_new_tokens=max_new_tokens, do_sample=DO_SAMPLE,
+                    temperature=TEMPERATURE, top_p=TOP_P,
                     pad_token_id=tokenizer.pad_token_id,
                     eos_token_id=tokenizer.eos_token_id,
                 )

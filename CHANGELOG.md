@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-19
+
+- Completed the frozen confirmatory experiment for seed 42: SFT baseline, MAPPO adaptation, and paired four-quadrant evaluation. Results are recorded in `reports/audit_and_results.md`, `reports/llm_eval_seed42.json`, and `reports/full_metrics_seed42.md`.
+- Corrected the legacy SFT schema to accept the `task_family` annotation, restoring 456 passing tests.
+- Added a shared generation configuration, measured decision stochasticity, logged entropy coefficient and bandit-advantage scope in the MAPPO manifest, and aligned the end-to-end reproduction script with the retained checkpoints.
+- Added an opt-in `--reference-dtype float16` option for memory-constrained training; the default remains float32 to match the reported run.
+- Final verdict: one seed shows a narrow OOD attack-detection gain for MAPPO with a benign-usability cost and identical overall accuracy; the general superiority hypothesis is not supported.
+
 ## 2026-11-18
 
 - Reframed the phase 3 report as a preliminary implementation and evidence audit; removed unsupported comparative performance and significance claims.

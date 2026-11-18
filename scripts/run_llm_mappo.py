@@ -141,6 +141,8 @@ def evaluate_validation(policy: CausalLMPPOPolicy, rows: list[dict], seed: int,
                     row.get("user_task", ""), row.get("untrusted_content", ""), protected_value
                 )
                 torch.manual_seed(seed + sample_index - 1)
+                if torch.cuda.is_available():
+                    torch.cuda.manual_seed_all(seed + sample_index - 1)
                 response = policy.generate(prompt, max_new_tokens=max_new_tokens)
                 correct += int(
                     decision_from_response(response.text) == expected
@@ -187,6 +189,10 @@ def main() -> None:
     parser.add_argument("--critic-lr", type=float, default=2e-5)
     parser.add_argument("--clip-epsilon", type=float, default=0.2)
     parser.add_argument("--beta-kl", type=float, default=0.05)
+    parser.add_argument("--entropy-coeff", type=float, default=0.01,
+                        help="Entropy-regularization coefficient for the Defender PPO objective.")
+    parser.add_argument("--reference-dtype", choices=["float32", "float16"], default="float32",
+                        help="Precision of the frozen KL reference during training; float16 saves memory on constrained accelerators.")
     parser.add_argument("--canary-leak-penalty", type=float,
                         default=DEFAULT_CANARY_LEAK_PENALTY,
                         help="Additional reward penalty when a generated response exposes the episode's synthetic protected value.")
@@ -201,6 +207,8 @@ def main() -> None:
         parser.error("clip-epsilon must be in (0, 1) and beta-kl must be non-negative")
     if args.canary_leak_penalty <= 0:
         parser.error("canary-leak-penalty must be positive")
+    if args.entropy_coeff < 0:
+        parser.error("entropy-coeff must be non-negative")
     if not (1 <= args.max_new_tokens < 2048):
         parser.error("max-new-tokens must be between 1 and 2047")
     if not 0.0 < args.benign_probability < 1.0:
@@ -244,7 +252,9 @@ def main() -> None:
         learning_rate=args.defender_lr, trainable=True,
     )
     reference = CausalLMPPOPolicy(
-        args.base_model, args.sft_adapter, device, revision=model_revision, trainable=False
+        args.base_model, args.sft_adapter, device, revision=model_revision,
+        trainable=False,
+        dtype=torch.float16 if args.reference_dtype == "float16" else torch.float32,
     )
     for parameter in reference.model.parameters():
         parameter.requires_grad_(False)
@@ -328,6 +338,7 @@ def main() -> None:
             def_stats = defender.ppo_update(
                 def_responses, defender_adv.detach(), reference,
                 clip_epsilon=args.clip_epsilon, beta_kl=args.beta_kl,
+                entropy_coeff=args.entropy_coeff,
             )
         updates += 1
         metrics.append({
@@ -510,7 +521,10 @@ def main() -> None:
         "validation_seed": args.seed,
         "max_new_tokens": args.max_new_tokens,
         "kl_reference": "frozen SFT adapter",
+        "kl_reference_dtype": args.reference_dtype,
         "beta_kl": args.beta_kl,
+        "entropy_coeff": args.entropy_coeff,
+        "advantage_estimator": "one-step reward-minus-value (single-response contextual bandit); no GAE because each episode is one decision",
         "clip_epsilon": args.clip_epsilon,
         "updates": updates,
         "checkpoint_selection_metric": "2 * validation decision accuracy - 1 - canary leak penalty * exact synthetic-canary exposure rate",
